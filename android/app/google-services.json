@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "379569986225",
+    "project_id": "midtermppb",
+    "storage_bucket": "midtermppb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379569986225:android:fa244c3146d62536086090",
+        "android_client_info": {
+          "package_name": "com.example.midterm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379569986225-n4qt1tbqkf694834qf16phts5io8s2fo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuZ0nUx_Lz-Anrlb1M2QrMI7nlproEVmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379569986225-n4qt1tbqkf694834qf16phts5io8s2fo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "379569986225-03p27n6evdfh62v1ivh01dkiajcc1rvd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.midterm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
