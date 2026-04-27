@@ -95,6 +95,7 @@ class LocalDatabase {
   // ══════════════════════════════════════════════════════════════════════════
 
   /// Insert or update a user record.
+/// Insert or update a user record safely without triggering ON DELETE CASCADE
   Future<void> upsertUser({
     required String id,
     required String email,
@@ -102,17 +103,33 @@ class LocalDatabase {
     required String photoUrl,
   }) async {
     final db = await database;
-    await db.insert(
-      'users',
-      {
-        'id': id,
-        'email': email,
-        'display_name': displayName,
-        'photo_url': photoUrl,
-        'created_at': DateTime.now().millisecondsSinceEpoch,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    
+    // Check if user exists first to avoid the REPLACE cascade wipe
+    final existingUser = await getUserById(id);
+    
+    final userData = {
+      'id': id,
+      'email': email,
+      'display_name': displayName,
+      'photo_url': photoUrl,
+      'created_at': DateTime.now().millisecondsSinceEpoch,
+    };
+
+    if (existingUser == null) {
+      // User doesn't exist, safe to insert
+      await db.insert('users', userData);
+    } else {
+      // User exists, just update their info so we don't delete their comments!
+      // (We remove 'id' and 'created_at' from the update map to preserve the originals)
+      userData.remove('id');
+      userData.remove('created_at');
+      await db.update(
+        'users', 
+        userData, 
+        where: 'id = ?', 
+        whereArgs: [id]
+      );
+    }
   }
 
   /// Fetch all users. (Read)
